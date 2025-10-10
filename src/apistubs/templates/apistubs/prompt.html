@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8">
+    <title>StubsPrompt - {{ yaml_path }}</title>
+    <style>
+        body {font-family: Arial, Helvetica, sans-serif; color: #F5B857; background: #0f0f0f; font-size: 15px; padding: 0;}
+        form {margin: 20px 0;}
+        form label {display: block; margin-top: 5px;}
+        textarea {position: fixed; z-index: 2; right: 30px; top: 36px; width: 50%; height: 200px; background: #272728; color: #F5B857; border: none; margin: 20px 0; font-size: 14px; padding: 5px; border-radius: 5px;}
+        ul {list-style: none; margin: 0; padding: 10px;}
+        ul li {padding:0; margin-bottom: 8px;}
+        ul li label {display: inline; color: #ffffff; cursor: pointer;}
+        .form a {color: #F5B857; text-decoration: none; display: inline-block; padding: 2px;}
+        .form a:target {background-color: #F5B857; color: #0f0f0f;}
+        button.save {position: fixed; left: 50%; margin-left: -38px; top: 280px; background: #F5B857; border: 0; font-size: 30px; cursor: pointer; margin-right: 15px; border-radius: 5px; font-weight: bold;}
+        h1 {display: inline; font-size: 20px; font-weight: normal; color: #fff;}
+        .header {background: #0f0f0f; position: fixed; right: 37px; top: 22px}
+        .last_requests h2 {font-size: 15px; margin: 0; color: #fff;}
+        .last_requests {position: fixed; right: 30px; top: 316px; width: 50%; color: #F5B857; border: none; margin: 20px 0; padding: 5px;}
+        .last_requests a {color: #F5B857; text-decoration: none; display: inline-block; padding: 2px; border-bottom: 1px dotted #F5B857;}
+        .env {position: fixed; top: 0; left: 50%; margin-left: -40px; background: #0f0f0f; box-shadow: #0f0f0f 0px 0px 5px 5px; z-index: 1;}
+        .env_wrapper {padding: 0px 5px; font-size: 14px;}
+        .env_wrapper input {background: #272728; font-size: 14px; color: #fff; width: 150px; margin: 0 3px; border: 0; border-radius: 5px; height: 26px; padding: 0 4px;}
+        .env_wrapper button { background: #F5B857; cursor: pointer;border: 0;font-size: 14px; border-radius: 5px;  height: 26px; padding: 0 4px;}
+    </style>
+  </head>
+  <body>
+    <div class="env">
+      <form class="env_wrapper" method="get" action="" onsubmit="this.action='{% if env %}../{% endif %}../'+ document.getElementById('env').value.trim() + ( document.getElementById('env').value.trim() ? '/' : '') + 'prompt/' ">
+        Env: <input id="env" value="{{ env }}"> <button>Go</button>
+      </form>
+    </div>
+    <form method="post" action="?">
+        {% csrf_token %}
+        <div class="header"><h1><b>Stubs</b>Prompt</h1></div>
+        <div class="form">
+          {{ form }}
+          <button class="save">Save</button>
+        </div>
+    </form>
+    {% if last_requests %}
+    <div class="last_requests">
+      <h2>Last requests:</h2>
+      {% for key, name in last_requests %}
+      <div>
+        <a href="#{{ key }}">
+          {{ name }}
+        </a>
+      </div>
+      {% endfor %}
+    </div>
+    {% endif %}
+  </body>
+</html>

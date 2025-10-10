@@ -1,0 +1,35 @@
+# pyproject.toml
+
+[build-system]
+requires = ["setuptools>=61.0"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "apistubs"
+version = "0.0.1"
+authors = [
+  { name="Eugene Rabtsau", email="e.ryabtsev@gmail.com" },
+]
+description = "APISTUBS: Active stubs service, which can interact with tests generator and LLMs"
+readme = "README.md"
+requires-python = ">=3.8"
+classifiers = [
+    "Programming Language :: Python :: 3",
+    "License :: OSI Approved :: BSD License",
+    "Operating System :: OS Independent",
+]
+dependencies = [
+    "requests",
+    "PyYAML",
+    "Jinja2",
+    "parse",
+    "mock",
+    "Django",
+    "openapi-core",
+    "uvicorn",
+    "fastapi"
+]
+
+[project.urls]
+Source = "https://github.com/ryabtsev/apistubs"
+

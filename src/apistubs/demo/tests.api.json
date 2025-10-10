@@ -1,0 +1,1940 @@
+{
+    "openapi": "3.0.0",
+    "info": {
+        "title": "Wargaming.net Personal (service) HTTP API",
+        "version": "1.0"
+    },
+    "tags": [],
+    "servers": [
+        {
+            "url": "https://{realm}.wargaming.net",
+            "variables": {
+                "realm": {
+                    "description": "A realm name.",
+                    "default": ""
+                }
+            }
+        }
+    ],
+    "paths": {
+        "/": {
+            "description": "Welcome to the Wargaming.net Personal (service) API documentation.\n\nservice uses HTTP protocol for requests and supports GET, POST, and DELETE methods.\nResponses are mainly returned in JSON format.\n\nThe base URL is `https://{realm}.wargaming.net/`, where the `{realm}` is a business-based variable.\n"
+        },
+        "/skipped2/": {
+            "get": {
+                "responses": {
+                    "202": {
+                        "content": {
+                            "application/json": {
+                                "examples": {
+                                    "example0": {
+                                        "summary": "[1] Accepted",
+                                        "value": {}
+                                    }
+                                }
+                            }
+                        },
+                        "description": "description"
+                    }
+                }
+            }
+        },
+        "/family/api/children/list/": {
+            "post": {
+                "responses": {
+                    "202": {
+                        "content": {
+                            "application/json": {
+                                "examples": {
+                                    "example0": {
+                                        "summary": "[1] Accepted",
+                                        "value": {}
+                                    }
+                                }
+                            }
+                        },
+                        "description": "description"
+                    }
+                },
+                "tags": [
+                    "undocumented"
+                ]
+            }
+        },
+        "/auth/sessions/{accountId}/list/": {
+            "get": {
+                "description": "The method retrieves information on the existing sessions\nof an account ID specified.\n",
+                "parameters": [
+                    {
+                        "name": "accountId",
+                        "in": "path",
+                        "schema": {
+                            "description": "An account ID.",
+                            "example": 12345,
+                            "type": "integer"
+                        },
+                        "required": true
+                    },
+                    {
+                        "name": "User-Agent",
+                        "required": false,
+                        "in": "header",
+                        "schema": {
+                            "description": "Specifies the application performing the API call.\nTemplate: %app_name%-%realm%/%version%\n",
+                            "example": "serviceclient-en/0.4.2_r42",
+                            "type": "string"
+                        }
+                    }
+                ],
+                "responses": {
+                    "301": {
+                        "description": ""
+                    },
+                    "200": {
+                        "description": "The request has succeeded. The response contains information on the existing\nsessions of an account ID specified.\n",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "type": "object",
+                                    "additionalProperties": true,
+                                    "required": [
+                                        "account_id",
+                                        "sessions"
+                                    ],
+                                    "properties": {
+                                        "account_id": {
+                                            "type": "integer"
+                                        },
+                                        "sessions": {
+                                            "type": "array",
+                                            "items": {
+                                                "type": "object",
+                                                "additionalProperties": true,
+                                                "required": [
+                                                    "session_token",
+                                                    "parent_session_token",
+                                                    "user_agent",
+                                                    "remote_addr",
+                                                    "updated_at"
+                                                ],
+                                                "properties": {
+                                                    "session_token": {
+                                                        "type": "string"
+                                                    },
+                                                    "parent_session_token": {
+                                                        "type": "string",
+                                                        "nullable": true
+                                                    },
+                                                    "user_agent": {
+                                                        "type": "string",
+                                                        "nullable": true
+                                                    },
+                                                    "remote_addr": {
+                                                        "type": "string",
+                                                        "nullable": true
+                                                    },
+                                                    "updated_at": {
+                                                        "type": "integer",
+                                                        "nullable": true
+                                                    }
+                                                }
+                                            }
+                                        }
+                                    }
+                                },
+                                "examples": {
+                                    "example0": {
+                                        "summary": "Sessions for a specified Account ID.",
+                                        "value": {
+                                            "account_id": 12345,
+                                            "sessions": [
+                                                {
+                                                    "user_agent": "Mozilla/5.0 (X11; Linux x86_64; rv:25.0) Gecko/20100101 Firefox/25.0",
+                                                    "parent_session_token": "923d1a618c244add9fd0cc6ce647e411c244add975bdf5df14b095d6aa74969",
+                                                    "updated_at": 1391673177,
+                                                    "remote_addr": "10.128.36.18",
+                                                    "session_token": "be28d87e377b817a0072867e6f687e3d2e520ad7f8e1969f8fc1c55a86134b81"
+                                                },
+                                                {
+                                                    "user_agent": "Mozilla/5.0 (X11; Linux x86_64; rv:25.0) Gecko/20100101 Firefox/25.0",
+                                                    "parent_session_token": "511cca618c244add9fd0cc6ce647e411c244add975bdf5df14b095d6aa74969",
+                                                    "updated_at": 1392806572,
+                                                    "remote_addr": "10.128.36.18",
+                                                    "session_token": "ea6974311ba45a4d6fdf0e1b886ea81f2d8609159381602d3dcf5c24ff6fe117"
+                                                }
+                                            ]
+                                        }
+                                    },
+                                    "example1": {
+                                        "summary": "No sessions for a specified Account ID.",
+                                        "value": {
+                                            "account_id": 12345,
+                                            "sessions": []
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "/auth/sessions/{accountId}/delete/": {
+            "post": {
+                "description": "The method deletes the existing sessions for an account ID specified.\n",
+                "parameters": [
+                    {
+                        "name": "accountId",
+                        "in": "path",
+                        "schema": {
+                            "description": "An account ID.",
+                            "example": 12345,
+                            "type": "integer"
+                        },
+                        "required": true
+                    },
+                    {
+                        "name": "User-Agent",
+                        "required": false,
+                        "in": "header",
+                        "schema": {
+                            "description": "Specifies the application performing the API call.\nTemplate: %app_name%-%realm%/%version%\n",
+                            "example": "serviceclient-en/0.4.2_r42",
+                            "type": "string"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "The request has succeeded. The response contains\na deleted session's token for a specified account ID.\n",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "type": "object",
+                                    "additionalProperties": true,
+                                    "required": [
+                                        "account_id",
+                                        "deleted"
+                                    ],
+                                    "properties": {
+                                        "account_id": {
+                                            "type": "integer"
+                                        },
+                                        "deleted": {
+                                            "type": "array",
+                                            "items": {
+                                                "type": "string"
+                                            }
+                                        }
+                                    }
+                                },
+                                "examples": {
+                                    "example0": {
+                                        "summary": "Deleted sessions for a specified Account ID.",
+                                        "value": {
+                                            "account_id": 12345,
+                                            "deleted": [
+                                                "be28d87e377b817a0072867e6f687e3d2e520ad7f8e1969f8fc1c55a86134b81",
+                                                "ea6974311ba45a4d6fdf0e1b886ea81f2d8609159381602d3dcf5c24ff6fe117"
+                                            ]
+                                        }
+                                    },
+                                    "example1": {
+                                        "summary": "No deleted sessions for a specified Account ID.",
+                                        "value": {
+                                            "account_id": 12345,
+                                            "deleted": []
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "/auth/sessions/{accountId}/delete/parent/": {
+            "post": {
+                "description": "The method initiates the parent-session-token-based deleting\nof existing sessions of an account ID specified.\n",
+                "parameters": [
+                    {
+                        "name": "token",
+                        "required": true,
+                        "in": "query",
+                        "schema": {
+                            "description": "A token of a parent session to delete.",
+                            "example": "ea6974311ba45a4d6fdf0e1b886ea81f2d8609159381602d3dcf5c24ff6fe117",
+                            "type": "string",
+                            "maxLength": 255
+                        }
+                    },
+                    {
+                        "name": "accountId",
+                        "required": true,
+                        "in": "path",
+                        "schema": {
+                            "type": "string"
+                        }
+                    },
+                    {
+                        "name": "User-Agent",
+                        "required": false,
+                        "in": "header",
+                        "schema": {
+                            "description": "Specifies the application performing the API call.\nTemplate: %app_name%-%realm%/%version%\n",
+                            "example": "serviceclient-en/0.4.2_r42",
+                            "type": "string"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "The request has succeeded. The response contains\na deleted session's token for a specified account ID\n(upon parent-session-token-based deleting).\n",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "type": "object",
+                                    "additionalProperties": true,
+                                    "required": [
+                                        "account_id",
+                                        "deleted"
+                                    ],
+                                    "properties": {
+                                        "account_id": {
+                                            "type": "integer"
+                                        },
+                                        "deleted": {
+                                            "type": "array",
+                                            "items": {
+                                                "type": "string"
+                                            }
+                                        }
+                                    }
+                                },
+                                "examples": {
+                                    "example0": {
+                                        "summary": "Deleted sessions for a specified Account ID.",
+                                        "value": {
+                                            "account_id": 12345,
+                                            "deleted": [
+                                                "be28d87e377b817a0072867e6f687e3d2e520ad7f8e1969f8fc1c55a86134b81",
+                                                "ea6974311ba45a4d6fdf0e1b886ea81f2d8609159381602d3dcf5c24ff6fe117"
+                                            ]
+                                        }
+                                    },
+                                    "example1": {
+                                        "summary": "No deleted sessions for a specified Account ID.",
+                                        "value": {
+                                            "account_id": 12345,
+                                            "deleted": []
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    },
+                    "409": {
+                        "description": "Either no required parameters have been passed or parameters passed are invalid.\n",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "type": "object",
+                                    "additionalProperties": true,
+                                    "required": [
+                                        "errors_codes"
+                                    ],
+                                    "properties": {
+                                        "errors_codes": {
+                                            "type": "object",
+                                            "additionalProperties": true,
+                                            "required": [
+                                                "token"
+                                            ],
+                                            "properties": {
+                                                "token": {
+                                                    "enum": [
+                                                        "required",
+                                                        "max_length"
+                                                    ],
+                                                    "type": "array",
+                                                    "items": {
+                                                        "type": "string"
+                                                    }
+                                                }
+                                            }
+                                        }
+                                    }
+                                },
+                                "examples": {
+                                    "example0": {
+                                        "summary": "Parent session token is invalid.",
+                                        "value": {
+                                            "errors_codes": {
+                                                "token": [
+                                                    "max_length"
+                                                ]
+                                            }
+                                        }
+                                    },
+                                    "example1": {
+                                        "summary": "Parent session token is required.",
+                                        "value": {
+                                            "errors_codes": {
+                                                "token": [
+                                                    "required"
+                                                ]
+                                            }
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "/auth/sessions/{accountId}/delete/client/": {
+            "post": {
+                "description": "The method deletes the client session for an account ID specified.\n",
+                "parameters": [
+                    {
+                        "name": "token",
+                        "required": true,
+                        "in": "query",
+                        "schema": {
+                            "description": "A token of a session to delete.",
+                            "example": "ea6974311ba45a4d6fdf0e1b886ea81f2d8609159381602d3dcf5c24ff6fe117",
+                            "type": "string",
+                            "maxLength": 255
+                        }
+                    },
+                    {
+                        "name": "accountId",
+                        "required": true,
+                        "in": "path",
+                        "schema": {
+                            "type": "string"
+                        }
+                    },
+                    {
+                        "name": "User-Agent",
+                        "required": false,
+                        "in": "header",
+                        "schema": {
+                            "description": "Specifies the application performing the API call.\nTemplate: %app_name%-%realm%/%version%\n",
+                            "example": "serviceclient-en/0.4.2_r42",
+                            "type": "string"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "The request has succeeded. The response contains\na deleted session's token for a specified account ID.\n",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "type": "object",
+                                    "additionalProperties": true,
+                                    "required": [
+                                        "account_id",
+                                        "deleted"
+                                    ],
+                                    "properties": {
+                                        "account_id": {
+                                            "type": "integer"
+                                        },
+                                        "deleted": {
+                                            "type": "array",
+                                            "items": {
+                                                "type": "string"
+                                            }
+                                        }
+                                    }
+                                },
+                                "examples": {
+                                    "example0": {
+                                        "summary": "Deleted session for a specified Account ID.",
+                                        "value": {
+                                            "account_id": 12345,
+                                            "deleted": [
+                                                "be28d87e377b817a0072867e6f687e3d2e520ad7f8e1969f8fc1c55a86134b81"
+                                            ]
+                                        }
+                                    },
+                                    "example1": {
+                                        "summary": "No deleted session for a specified Account ID.",
+                                        "value": {
+                                            "account_id": 12345,
+                                            "deleted": []
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    },
+                    "409": {
+                        "description": "Either no required parameters have been passed or parameters passed are invalid.\n",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "type": "object",
+                                    "additionalProperties": true,
+                                    "required": [
+                                        "errors_codes"
+                                    ],
+                                    "properties": {
+                                        "errors_codes": {
+                                            "type": "object",
+                                            "additionalProperties": true,
+                                            "required": [
+                                                "token"
+                                            ],
+                                            "properties": {
+                                                "token": {
+                                                    "enum": [
+                                                        "required",
+                                                        "max_length"
+                                                    ],
+                                                    "type": "array",
+                                                    "items": {
+                                                        "type": "string"
+                                                    }
+                                                }
+                                            }
+                                        }
+                                    }
+                                },
+                                "examples": {
+                                    "example0": {
+                                        "summary": "Invalid session token.",
+                                        "value": {
+                                            "errors_codes": {
+                                                "token": [
+                                                    "max_length"
+                                                ]
+                                            }
+                                        }
+                                    },
+                                    "example1": {
+                                        "summary": "Session token is required.",
+                                        "value": {
+                                            "errors_codes": {
+                                                "token": [
+                                                    "required"
+                                                ]
+                                            }
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "/realm/detect/": {
+            "get": {
+                "description": "The method gets the realm appropriate for a requesting IP.\n",
+                "parameters": [
+                    {
+                        "name": "User-Agent",
+                        "required": false,
+                        "in": "header",
+                        "schema": {
+                            "description": "Specifies the application performing the API call.\nTemplate: %app_name%-%realm%/%version%\n",
+                            "example": "serviceclient-en/0.4.2_r42",
+                            "type": "string"
+                        }
+                    }
+                ],
+                "responses": {
+                    "409": {
+                        "description": ""
+                    },
+                    "200": {
+                        "description": "",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "type": "object",
+                                    "additionalProperties": true,
+                                    "required": [
+                                        "status",
+                                        "realm",
+                                        "country"
+                                    ],
+                                    "properties": {
+                                        "status": {
+                                            "description": "Status of detect operation",
+                                            "enum": [
+                                                "error",
+                                                "ok"
+                                            ],
+                                            "type": "string"
+                                        },
+                                        "realm": {
+                                            "description": "Realm code for request IP address",
+                                            "enum": [
+                                                "ru",
+                                                "eu",
+                                                "us",
+                                                "sg",
+                                                "kr"
+                                            ],
+                                            "type": "string"
+                                        },
+                                        "country": {
+                                            "description": "Country code for request IP address, or null if country is unknown",
+                                            "type": "string",
+                                            "minLength": 2,
+                                            "maxLength": 2,
+                                            "nullable": true
+                                        }
+                                    }
+                                },
+                                "examples": {
+                                    "example0": {
+                                        "summary": "Example: IP does not match any country.",
+                                        "value": {
+                                            "status": "ok",
+                                            "realm": "ru",
+                                            "country": null
+                                        }
+                                    },
+                                    "example1": {
+                                        "summary": "Example: IP matches Belarus.",
+                                        "value": {
+                                            "status": "ok",
+                                            "realm": "ru",
+                                            "country": "BY"
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "/personal/account/authentication/methods/": {
+            "description": "Account authentication methods. The API requires service authentication.\n",
+            "get": {
+                "description": "The method obtains a list of authentication methods for an account.\n",
+                "responses": {
+                    "200": {
+                        "description": "The request has succeeded. The response contains\nan authentication methods response list.\n",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "type": "object",
+                                    "additionalProperties": true,
+                                    "required": [
+                                        "status",
+                                        "methods"
+                                    ],
+                                    "properties": {
+                                        "status": {
+                                            "enum": [
+                                                "ok"
+                                            ],
+                                            "type": "string"
+                                        },
+                                        "methods": {
+                                            "description": "A list of authentication methods. Example values: basic, token, external/facebook.",
+                                            "type": "array",
+                                            "items": {
+                                                "type": "string"
+                                            }
+                                        }
+                                    }
+                                },
+                                "examples": {
+                                    "example0": {
+                                        "summary": "[1] Default",
+                                        "value": {
+                                            "status": "ok",
+                                            "methods": [
+                                                "basic",
+                                                "token",
+                                                "external/email",
+                                                "external/facebook",
+                                                "external/tel"
+                                            ]
+                                        }
+                                    },
+                                    "example1": {
+                                        "summary": "[2] Ok",
+                                        "value": {
+                                            "methods": [
+                                                "basic",
+                                                "simple",
+                                                "temp",
+                                                "token",
+                                                "external/email",
+                                                "external/facebook",
+                                                "external/tel"
+                                            ],
+                                            "status": "ok"
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    },
+                    "403": {
+                        "description": "No authentication completed.\n",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "type": "object",
+                                    "additionalProperties": true,
+                                    "required": [
+                                        "status"
+                                    ],
+                                    "properties": {
+                                        "status": {
+                                            "enum": [
+                                                "error"
+                                            ],
+                                            "type": "string"
+                                        }
+                                    }
+                                },
+                                "example": {
+                                    "status": "error"
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "/personal/account/nicknames/{nickname}/": {
+            "get": {
+                "description": "The method provides information on whether a nickname is vacant or not.\nIf not, suggests possible vacant nicknames.\n",
+                "parameters": [
+                    {
+                        "name": "suggestions",
+                        "in": "query",
+                        "schema": {
+                            "description": "Generates suggestions. Allowed value is 1.",
+                            "type": "integer"
+                        }
+                    },
+                    {
+                        "name": "use_pattern",
+                        "in": "query",
+                        "schema": {
+                            "description": "Generate suggestions by pattern. Available only if `suggestions=1` is passed.\nDefault patterns:\nnickname is valid and occupied – <adjective>_<nickname>_<random number in range of 1 - 1000>\nnickname is not valid – <adjective>_<noun>_<random number in range of 1 - 1000>\n",
+                            "type": "string"
+                        }
+                    },
+                    {
+                        "name": "nickname",
+                        "in": "path",
+                        "schema": {
+                            "description": "User nickname.",
+                            "type": "string",
+                            "minLength": 3,
+                            "maxLength": 24
+                        },
+                        "required": true
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "type": "object",
+                                    "additionalProperties": true,
+                                    "required": [
+                                        "user_id"
+                                    ],
+                                    "properties": {
+                                        "user_id": {
+                                            "type": "number"
+                                        },
+                                        "banned": {
+                                            "enum": [
+                                                "true",
+                                                "false"
+                                            ],
+                                            "type": "string"
+                                        },
+                                        "suggestions": {
+                                            "type": "array",
+                                            "items": {
+                                                "type": "string"
+                                            }
+                                        }
+                                    }
+                                },
+                                "examples": {
+                                    "example0": {
+                                        "summary": "[1] Get nickname exists",
+                                        "value": {
+                                            "user_id": 43
+                                        }
+                                    },
+                                    "example1": {
+                                        "summary": "[2] Get suggestions",
+                                        "value": {
+                                            "user_id": 43,
+                                            "suggestions": [
+                                                "user43_zheleznyj",
+                                                "user43_2023",
+                                                "user43_1"
+                                            ]
+                                        }
+                                    },
+                                    "example2": {
+                                        "summary": "[3] Pattern ok",
+                                        "value": {
+                                            "user_id": 43,
+                                            "suggestions": [
+                                                "ferocious_user43_384",
+                                                "powerful_user43_926",
+                                                "keen_user43_939",
+                                                "ardent_user43_58",
+                                                "tough_user43_244"
+                                            ]
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    },
+                    "409": {
+                        "description": "An invalid nickname, either too short or too long.\n",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "type": "object",
+                                    "additionalProperties": true,
+                                    "properties": {
+                                        "__all__": {
+                                            "type": "array",
+                                            "items": {
+                                                "enum": [
+                                                    "invalid",
+                                                    "min_length",
+                                                    "max_length"
+                                                ],
+                                                "type": "string"
+                                            }
+                                        }
+                                    }
+                                },
+                                "examples": {
+                                    "example0": {
+                                        "summary": "The nickname is invalid.",
+                                        "value": {
+                                            "__all__": [
+                                                "invalid"
+                                            ]
+                                        }
+                                    },
+                                    "example1": {
+                                        "summary": "The nickname is too short.",
+                                        "value": {
+                                            "__all__": [
+                                                "min_length"
+                                            ]
+                                        }
+                                    },
+                                    "example2": {
+                                        "summary": "The nickname is too long.",
+                                        "value": {
+                                            "__all__": [
+                                                "max_length"
+                                            ]
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+            },
+            "post": {
+                "description": "The method provides information on whether a nickname is vacant or not.\nIf not, suggests possible vacant nicknames.\nAdditionally, it allows setting nickname customization parameters\nlisted in the Query Parameters table below.\n",
+                "parameters": [
+                    {
+                        "name": "nickname",
+                        "in": "path",
+                        "schema": {
+                            "description": "User nickname.",
+                            "type": "string",
+                            "minLength": 3,
+                            "maxLength": 24
+                        },
+                        "required": true
+                    }
+                ],
+                "requestBody": {
+                    "content": {
+                        "application/x-www-form-urlencoded": {
+                            "schema": {
+                                "type": "object",
+                                "additionalProperties": false,
+                                "properties": {
+                                    "suggestions": {
+                                        "description": "Generates suggestions. Allowed value is 1",
+                                        "type": "integer"
+                                    },
+                                    "use_pattern": {
+                                        "description": "Generate suggestions by pattern. Available only if `suggestions=1` is passed.\nDefault patterns:\nnickname is valid and occupied – <adjective>_<nickname>_<random number in range of 1 - 1000>\nnickname is not valid – <adjective>_<noun>_<random number in range of 1 - 1000>\n",
+                                        "type": "string"
+                                    },
+                                    "email": {
+                                        "description": "User email.\n",
+                                        "example": "nagibator1981@ema.il",
+                                        "type": "string"
+                                    },
+                                    "first_name": {
+                                        "description": "User first name.\n",
+                                        "example": "Ivan",
+                                        "type": "string"
+                                    },
+                                    "last_name": {
+                                        "description": "User last name.\n",
+                                        "example": "Ivanov",
+                                        "type": "string"
+                                    },
+                                    "birth_year": {
+                                        "description": "User birth date.\n",
+                                        "example": 2012,
+                                        "type": "string"
+                                    }
+                                }
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "description": "",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "type": "object",
+                                    "additionalProperties": true,
+                                    "required": [
+                                        "user_id"
+                                    ],
+                                    "properties": {
+                                        "user_id": {
+                                            "type": "number"
+                                        },
+                                        "banned": {
+                                            "enum": [
+                                                "true",
+                                                "false"
+                                            ],
+                                            "type": "string"
+                                        },
+                                        "suggestions": {
+                                            "type": "array",
+                                            "items": {
+                                                "type": "string"
+                                            }
+                                        }
+                                    }
+                                },
+                                "examples": {
+                                    "example0": {
+                                        "summary": "[1] Post nickname exists",
+                                        "value": {
+                                            "user_id": 43
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    },
+                    "409": {
+                        "description": "An invalid nickname, either too short or too long.\n",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "type": "object",
+                                    "additionalProperties": true,
+                                    "properties": {
+                                        "__all__": {
+                                            "type": "array",
+                                            "items": {
+                                                "enum": [
+                                                    "invalid",
+                                                    "min_length",
+                                                    "max_length"
+                                                ],
+                                                "type": "string"
+                                            }
+                                        }
+                                    }
+                                },
+                                "examples": {
+                                    "example0": {
+                                        "summary": "The nickname is invalid.",
+                                        "value": {
+                                            "__all__": [
+                                                "invalid"
+                                            ]
+                                        }
+                                    },
+                                    "example1": {
+                                        "summary": "The nickname is too short.",
+                                        "value": {
+                                            "__all__": [
+                                                "min_length"
+                                            ]
+                                        }
+                                    },
+                                    "example2": {
+                                        "summary": "The nickname is too long.",
+                                        "value": {
+                                            "__all__": [
+                                                "max_length"
+                                            ]
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "/personal/account/birthday/": {
+            "post": {
+                "description": "The method initiates a birthday changing request.",
+                "parameters": [
+                    {
+                        "name": "birthday",
+                        "required": true,
+                        "in": "query",
+                        "schema": {
+                            "example": "TBD (19/03)",
+                            "type": "string"
+                        }
+                    },
+                    {
+                        "name": "User-Agent",
+                        "required": false,
+                        "in": "header",
+                        "schema": {
+                            "description": "Specifies the application performing the API call.\nTemplate: %app_name%-%realm%/%version%\n",
+                            "example": "serviceclient-en/0.4.2_r42",
+                            "type": "string"
+                        }
+                    },
+                    {
+                        "name": "Cookie",
+                        "required": true,
+                        "in": "header",
+                        "schema": {
+                            "description": "Cookies:\nservice_session_security_token - stores a session security token;\nservice_sessionid - stores a service session token;\nservice_csrftoken - stores a CSRF token (32 symbols).\n",
+                            "example": "service_session_security_token=5997d8e5-5e4f-4862-8e93-02d22ff9aa15;service_sessionid=a4ffd5c9a30f73424a9a878ae646fe9c;service_csrftoken=pRQn2kBXk6j9MLzZeiozhQJyLl1Jwdrk",
+                            "type": "string"
+                        }
+                    },
+                    {
+                        "name": "Referer",
+                        "required": true,
+                        "in": "header",
+                        "schema": {
+                            "description": "A referer has to correspond to a particular domain of the service instance from which a request is originated.",
+                            "example": "https://<realm>.wargaming.net/",
+                            "type": "string"
+                        }
+                    },
+                    {
+                        "name": "Accept-Language",
+                        "required": false,
+                        "in": "header",
+                        "schema": {
+                            "description": "The list of acceptable human languages for the response.",
+                            "example": "en-US",
+                            "type": "string"
+                        }
+                    }
+                ],
+                "responses": {
+                    "202": {
+                        "description": "The background task has been accepted for processing.\nThe results can be obtained by requesting the URL given in the Location header.\n",
+                        "headers": {
+                            "Location": {
+                                "schema": {
+                                    "description": "The URL for checking the background task's completion.",
+                                    "example": "https://<realm>.wargaming.net/personal/account/birthday/update/status/97ba4766a958467dc2aa9fd0c9859066/\n",
+                                    "type": "string"
+                                }
+                            }
+                        },
+                        "content": {
+                            "application/json": {
+                                "schema": {},
+                                "example": {}
+                            }
+                        }
+                    },
+                    "400": {
+                        "description": "The background task hasn't started due to a bad request data sent by the user.\nThe user has to fix and resend the data.\nView error messages in the body, to get the idea on fixing the request data.\n",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "type": "object",
+                                    "additionalProperties": true,
+                                    "required": [
+                                        "errors"
+                                    ],
+                                    "properties": {
+                                        "errors": {
+                                            "type": "object",
+                                            "additionalProperties": true,
+                                            "properties": {
+                                                "birthday": {
+                                                    "type": "array",
+                                                    "items": {
+                                                        "enum": [
+                                                            "required",
+                                                            "invalid"
+                                                        ],
+                                                        "type": "string"
+                                                    }
+                                                }
+                                            }
+                                        }
+                                    }
+                                },
+                                "example": {
+                                    "errors": {
+                                        "birthday": [
+                                            "invalid"
+                                        ]
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+            },
+            "delete": {
+                "description": "The method initiates a birthday deleting process.\n",
+                "parameters": [
+                    {
+                        "name": "User-Agent",
+                        "required": false,
+                        "in": "header",
+                        "schema": {
+                            "description": "Specifies the application performing the API call.\nTemplate: %app_name%-%realm%/%version%\n",
+                            "example": "serviceclient-en/0.4.2_r42",
+                            "type": "string"
+                        }
+                    },
+                    {
+                        "name": "Cookie",
+                        "required": true,
+                        "in": "header",
+                        "schema": {
+                            "description": "Cookies:\nservice_session_security_token - stores a session security token;\nservice_sessionid - stores a service session token;\nservice_csrftoken - stores a CSRF token (32 symbols).\n",
+                            "example": "service_session_security_token=5997d8e5-5e4f-4862-8e93-02d22ff9aa15;service_sessionid=a4ffd5c9a30f73424a9a878ae646fe9c;service_csrftoken=pRQn2kBXk6j9MLzZeiozhQJyLl1Jwdrk",
+                            "type": "string"
+                        }
+                    },
+                    {
+                        "name": "Referer",
+                        "required": true,
+                        "in": "header",
+                        "schema": {
+                            "description": "A referer has to correspond to a particular domain of the service instance from which a request is originated.",
+                            "example": "https://<realm>.wargaming.net/",
+                            "type": "string"
+                        }
+                    },
+                    {
+                        "name": "Accept-Language",
+                        "required": false,
+                        "in": "header",
+                        "schema": {
+                            "description": "The list of acceptable human languages for the response.",
+                            "example": "en-US",
+                            "type": "string"
+                        }
+                    }
+                ],
+                "responses": {
+                    "202": {
+                        "description": "The background task has been accepted for processing.\nThe results can be obtained by requesting the URL given in the Location header.\n",
+                        "headers": {
+                            "Location": {
+                                "schema": {
+                                    "description": "The URL for checking the background task's completion.",
+                                    "example": "https://<realm>.wargaming.net/personal/account/birthday/delete/status/97ba4766a958467dc2aa9fd0c9859066/\n",
+                                    "type": "string"
+                                }
+                            }
+                        },
+                        "content": {
+                            "application/json": {
+                                "schema": {},
+                                "example": {}
+                            }
+                        }
+                    }
+                }
+            },
+            "get": {
+                "responses": {
+                    "200": {
+                        "content": {
+                            "application/json": {
+                                "examples": {
+                                    "example0": {
+                                        "summary": "[1] Ok",
+                                        "value": {}
+                                    }
+                                }
+                            }
+                        },
+                        "description": "description"
+                    },
+                    "302": {
+                        "content": {
+                            "application/json": {
+                                "examples": {
+                                    "example0": {
+                                        "summary": "[1] Redirect index",
+                                        "value": {}
+                                    }
+                                }
+                            }
+                        },
+                        "description": "description"
+                    }
+                }
+            }
+        },
+        "/personal/account/birthday/update/status/{token}/": {
+            "get": {
+                "description": "The method checks the status.",
+                "parameters": [
+                    {
+                        "name": "token",
+                        "required": true,
+                        "in": "path",
+                        "schema": {
+                            "title": "token",
+                            "description": "A background task token.",
+                            "example": "9c46754984374a1cb187f20c79565fc2",
+                            "type": "string"
+                        }
+                    },
+                    {
+                        "name": "User-Agent",
+                        "required": false,
+                        "in": "header",
+                        "schema": {
+                            "description": "Specifies the application performing the API call.\nTemplate: %app_name%-%realm%/%version%\n",
+                            "example": "serviceclient-en/0.4.2_r42",
+                            "type": "string"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "The background task processing has succeeded,\nno errors during the operation, the body contains a result.\n",
+                        "content": {
+                            "application/json": {
+                                "schema": {},
+                                "example": {
+                                    "$schema": "http://json-schema.org/draft-04/schema",
+                                    "type": "object",
+                                    "properties": {}
+                                }
+                            }
+                        }
+                    },
+                    "202": {
+                        "description": "The background task has been accepted but not processed yet. Come back later.\n",
+                        "headers": {
+                            "Location": {
+                                "schema": {
+                                    "description": "The URL for checking the background task's completion.",
+                                    "example": "https://<realm>.wargaming.net/personal/account/birthday/update/status/97ba4766a958467dc2aa9fd0c9859066/\n",
+                                    "type": "string"
+                                }
+                            }
+                        },
+                        "content": {
+                            "application/json": {
+                                "schema": {},
+                                "example": {}
+                            }
+                        }
+                    },
+                    "408": {
+                        "description": "The background task hasn't been processed due to a timeout.\nThe task stopped being processed. No need to continue polling this URL.\n",
+                        "content": {
+                            "application/json": {
+                                "schema": {},
+                                "example": {}
+                            }
+                        }
+                    },
+                    "409": {
+                        "description": "An error has occurred upon request processing. It is not a result of a malformed\ndata sent by the user, but rather a conflict between server data and request data.\n",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "type": "object",
+                                    "additionalProperties": true,
+                                    "required": [
+                                        "errors"
+                                    ],
+                                    "properties": {
+                                        "errors": {
+                                            "type": "object",
+                                            "additionalProperties": true,
+                                            "properties": {
+                                                "__all__": {
+                                                    "type": "array",
+                                                    "items": {
+                                                        "enum": [
+                                                            "restriction_error",
+                                                            "process_error"
+                                                        ],
+                                                        "type": "string"
+                                                    }
+                                                }
+                                            }
+                                        }
+                                    }
+                                },
+                                "example": {
+                                    "errors": {
+                                        "__all__": [
+                                            "restriction_error"
+                                        ]
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "/personal/account/birthday/delete/status/{token}/": {
+            "get": {
+                "description": "The method checks the status.",
+                "parameters": [
+                    {
+                        "name": "token",
+                        "required": true,
+                        "in": "path",
+                        "schema": {
+                            "title": "token",
+                            "description": "A background task token.",
+                            "example": "9c46754984374a1cb187f20c79565fc2",
+                            "type": "string"
+                        }
+                    },
+                    {
+                        "name": "User-Agent",
+                        "required": false,
+                        "in": "header",
+                        "schema": {
+                            "description": "Specifies the application performing the API call.\nTemplate: %app_name%-%realm%/%version%\n",
+                            "example": "serviceclient-en/0.4.2_r42",
+                            "type": "string"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "The background task processing has succeeded,\nno errors during the operation, the body contains a result.\n",
+                        "content": {
+                            "application/json": {
+                                "schema": {},
+                                "example": {
+                                    "$schema": "http://json-schema.org/draft-04/schema",
+                                    "type": "object",
+                                    "properties": {}
+                                }
+                            }
+                        }
+                    },
+                    "202": {
+                        "description": "The background task has been accepted but not processed yet. Come back later.\n",
+                        "headers": {
+                            "Location": {
+                                "schema": {
+                                    "description": "The URL for checking the background task's completion.",
+                                    "example": "https://<realm>.wargaming.net/personal/account/birthday/delete/status/97ba4766a958467dc2aa9fd0c9859066/\n",
+                                    "type": "string"
+                                }
+                            }
+                        },
+                        "content": {
+                            "application/json": {
+                                "schema": {},
+                                "example": {}
+                            }
+                        }
+                    },
+                    "408": {
+                        "description": "The background task hasn't been processed due to a timeout.\nThe task stopped being processed. No need to continue polling this URL.\n",
+                        "content": {
+                            "application/json": {
+                                "schema": {},
+                                "example": {}
+                            }
+                        }
+                    },
+                    "409": {
+                        "description": "An error has occurred upon request processing. It is not a result of a malformed\ndata sent by the user, but rather a conflict between server data and request data.\n",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "type": "object",
+                                    "additionalProperties": true,
+                                    "required": [
+                                        "errors"
+                                    ],
+                                    "properties": {
+                                        "errors": {
+                                            "type": "object",
+                                            "additionalProperties": true,
+                                            "properties": {
+                                                "__all__": {
+                                                    "type": "array",
+                                                    "items": {
+                                                        "enum": [
+                                                            "process_error"
+                                                        ],
+                                                        "type": "string"
+                                                    }
+                                                }
+                                            }
+                                        }
+                                    }
+                                },
+                                "example": {
+                                    "errors": {
+                                        "__all__": [
+                                            "restriction_error"
+                                        ]
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "/personal/cellphone/api/reset_limits/{account_id}/": {
+            "post": {
+                "description": "The method resets the limits of binding a mobile phone to an account.\n",
+                "parameters": [
+                    {
+                        "name": "account_id",
+                        "in": "path",
+                        "schema": {
+                            "description": "An account ID.",
+                            "example": 12345,
+                            "type": "integer"
+                        },
+                        "required": true
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "type": "object",
+                                    "additionalProperties": true,
+                                    "required": [
+                                        "status",
+                                        "status_code",
+                                        "data"
+                                    ],
+                                    "properties": {
+                                        "status": {
+                                            "enum": [
+                                                "error",
+                                                "ok"
+                                            ],
+                                            "type": "string"
+                                        },
+                                        "status_code": {
+                                            "enum": [
+                                                "NO_ERROR",
+                                                "user_idS_IS_REQUIRED",
+                                                "user_id_NOT_FOUND",
+                                                "SPA_UNAVAILABLE"
+                                            ],
+                                            "type": "string"
+                                        },
+                                        "data": {
+                                            "type": "object",
+                                            "additionalProperties": true,
+                                            "properties": {
+                                                "attempts_deleted": {
+                                                    "description": "The previous number of attempts. Always equals 1 for backward compatibility.",
+                                                    "type": "number"
+                                                }
+                                            }
+                                        }
+                                    }
+                                },
+                                "examples": {
+                                    "example0": {
+                                        "summary": "[1] Incorrect id",
+                                        "value": {
+                                            "data": {},
+                                            "status": "error",
+                                            "status_code": "user_id_NOT_FOUND"
+                                        }
+                                    },
+                                    "example1": {
+                                        "summary": "[2] Initialize error",
+                                        "value": {
+                                            "data": {},
+                                            "status": "error",
+                                            "status_code": "SPA_UNAVAILABLE"
+                                        }
+                                    },
+                                    "example2": {
+                                        "summary": "[3] Ok",
+                                        "value": {
+                                            "data": {
+                                                "attempts_deleted": 1
+                                            },
+                                            "status": "ok",
+                                            "status_code": "NO_ERROR"
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "/personal/cellphone/api/unbind/{account_id}/": {
+            "post": {
+                "description": "The method initiates unbinding of a mobile phone.\n",
+                "parameters": [
+                    {
+                        "name": "via",
+                        "required": false,
+                        "in": "query",
+                        "schema": {
+                            "description": "Identifier of initializer.",
+                            "example": "backyard",
+                            "type": "string"
+                        }
+                    },
+                    {
+                        "name": "account_id",
+                        "in": "path",
+                        "schema": {
+                            "description": "An account ID.",
+                            "example": 12345,
+                            "type": "integer"
+                        },
+                        "required": true
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "type": "object",
+                                    "additionalProperties": true,
+                                    "required": [
+                                        "status",
+                                        "status_code",
+                                        "data"
+                                    ],
+                                    "properties": {
+                                        "status": {
+                                            "enum": [
+                                                "error",
+                                                "ok"
+                                            ],
+                                            "type": "string"
+                                        },
+                                        "status_code": {
+                                            "enum": [
+                                                "NO_ERROR",
+                                                "user_idS_IS_REQUIRED",
+                                                "user_id_NOT_FOUND",
+                                                "SPA_UNAVAILABLE"
+                                            ],
+                                            "type": "string"
+                                        },
+                                        "data": {
+                                            "type": "object",
+                                            "additionalProperties": true,
+                                            "properties": {
+                                                "tel_unbinded": {
+                                                    "description": "Unbinded phone number.",
+                                                    "type": "string"
+                                                }
+                                            }
+                                        }
+                                    }
+                                },
+                                "examples": {
+                                    "example0": {
+                                        "summary": "[1] Error connection",
+                                        "value": {
+                                            "data": {},
+                                            "status": "error",
+                                            "status_code": "SPA_UNAVAILABLE"
+                                        }
+                                    },
+                                    "example1": {
+                                        "summary": "[2] Incorrect id",
+                                        "value": {
+                                            "data": {},
+                                            "status": "error",
+                                            "status_code": "user_id_NOT_FOUND"
+                                        }
+                                    },
+                                    "example2": {
+                                        "summary": "[3] No cellphone",
+                                        "value": {
+                                            "data": {},
+                                            "status": "ok",
+                                            "status_code": "NO_ERROR"
+                                        }
+                                    },
+                                    "example3": {
+                                        "summary": "[4] Unbind ok",
+                                        "value": {
+                                            "data": {
+                                                "tel_unbinded": "1234567"
+                                            },
+                                            "status": "ok",
+                                            "status_code": "NO_ERROR"
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "/personal/cellphone/api/get_details/{account_id}/": {
+            "post": {
+                "description": "The method gets details on binding a mobile phone.\n",
+                "parameters": [
+                    {
+                        "name": "account_id",
+                        "in": "path",
+                        "schema": {
+                            "description": "An account ID.",
+                            "example": 12345,
+                            "type": "integer"
+                        },
+                        "required": true
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "type": "object",
+                                    "additionalProperties": true,
+                                    "required": [
+                                        "status",
+                                        "status_code",
+                                        "data"
+                                    ],
+                                    "properties": {
+                                        "status": {
+                                            "enum": [
+                                                "error",
+                                                "ok"
+                                            ],
+                                            "type": "string"
+                                        },
+                                        "status_code": {
+                                            "enum": [
+                                                "NO_ERROR",
+                                                "user_id_NOT_FOUND",
+                                                "SPA_UNAVAILABLE"
+                                            ],
+                                            "type": "string"
+                                        },
+                                        "data": {
+                                            "type": "object",
+                                            "additionalProperties": true,
+                                            "properties": {
+                                                "days_left_to_next_change": {
+                                                    "description": "Days left to next change.",
+                                                    "type": "number"
+                                                },
+                                                "attempts_of_changes_left": {
+                                                    "description": "Attempts of changes left.",
+                                                    "type": "number"
+                                                }
+                                            }
+                                        }
+                                    }
+                                },
+                                "examples": {
+                                    "example0": {
+                                        "summary": "[1] Error phone numbers manager initialization error",
+                                        "value": {
+                                            "data": {},
+                                            "status": "ok",
+                                            "status_code": "SPA_UNAVAILABLE"
+                                        }
+                                    },
+                                    "example1": {
+                                        "summary": "[2] Incorrect id",
+                                        "value": {
+                                            "data": {},
+                                            "status": "error",
+                                            "status_code": "user_id_NOT_FOUND"
+                                        }
+                                    },
+                                    "example2": {
+                                        "summary": "[3] No cellphone",
+                                        "value": {
+                                            "data": {
+                                                "attempts_of_changes_left": 6,
+                                                "days_left_to_next_change": 18
+                                            },
+                                            "status": "ok",
+                                            "status_code": "NO_ERROR"
+                                        }
+                                    },
+                                    "example3": {
+                                        "summary": "[4] Ok",
+                                        "value": {
+                                            "data": {
+                                                "attempts_of_changes_left": 5,
+                                                "days_left_to_next_change": 28
+                                            },
+                                            "status": "ok",
+                                            "status_code": "NO_ERROR"
+                                        }
+                                    },
+                                    "example4": {
+                                        "summary": "[5] Ok can not edit cellphone",
+                                        "value": {
+                                            "data": {
+                                                "attempts_of_changes_left": 1,
+                                                "days_left_to_next_change": 28
+                                            },
+                                            "status": "ok",
+                                            "status_code": "NO_ERROR"
+                                        }
+                                    },
+                                    "example5": {
+                                        "summary": "[6] Ok can not edit cellphone attempts over",
+                                        "value": {
+                                            "data": {
+                                                "attempts_of_changes_left": 0,
+                                                "days_left_to_next_change": 270
+                                            },
+                                            "status": "ok",
+                                            "status_code": "NO_ERROR"
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "/personal/cellphone/api/deactivate_sms/{account_id}/": {
+            "post": {
+                "description": "The method initiates deactivating of all pending SMS codes for an account.\n",
+                "parameters": [
+                    {
+                        "name": "account_id",
+                        "in": "path",
+                        "schema": {
+                            "description": "An account ID.",
+                            "example": 12345,
+                            "type": "integer"
+                        },
+                        "required": true
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "type": "object",
+                                    "additionalProperties": true,
+                                    "required": [
+                                        "status",
+                                        "status_code",
+                                        "data"
+                                    ],
+                                    "properties": {
+                                        "status": {
+                                            "enum": [
+                                                "error",
+                                                "ok"
+                                            ],
+                                            "type": "string"
+                                        },
+                                        "status_code": {
+                                            "enum": [
+                                                "NO_ERROR",
+                                                "user_id_NOT_FOUND"
+                                            ],
+                                            "type": "string"
+                                        },
+                                        "data": {
+                                            "type": "object",
+                                            "additionalProperties": true,
+                                            "properties": {
+                                                "deactivated_codes_count": {
+                                                    "description": "The number of deactivated sms confirmation codes.",
+                                                    "type": "number"
+                                                }
+                                            }
+                                        }
+                                    }
+                                },
+                                "examples": {
+                                    "example0": {
+                                        "summary": "[1] Incorrect id",
+                                        "value": {
+                                            "data": {},
+                                            "status": "error",
+                                            "status_code": "user_id_NOT_FOUND"
+                                        }
+                                    },
+                                    "example1": {
+                                        "summary": "[2] Ok",
+                                        "value": {
+                                            "data": {
+                                                "deactivated_codes_count": 1
+                                            },
+                                            "status": "ok",
+                                            "status_code": "NO_ERROR"
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "/personal/cellphone/api/unbind/request/cancel/{account_id}/": {
+            "post": {
+                "description": "The method cancels the unbinding operation.\n",
+                "parameters": [
+                    {
+                        "name": "account_id",
+                        "in": "path",
+                        "schema": {
+                            "description": "An account ID.",
+                            "example": 12345,
+                            "type": "integer"
+                        },
+                        "required": true
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "type": "object",
+                                    "additionalProperties": true
+                                },
+                                "example": {}
+                            }
+                        }
+                    },
+                    "409": {
+                        "description": "",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "type": "object",
+                                    "additionalProperties": true,
+                                    "required": [
+                                        "errors"
+                                    ],
+                                    "properties": {
+                                        "errors": {
+                                            "type": "object",
+                                            "additionalProperties": true,
+                                            "properties": {
+                                                "__all__": {
+                                                    "type": "array",
+                                                    "items": {
+                                                        "enum": [
+                                                            "no_unbind_request"
+                                                        ],
+                                                        "type": "string"
+                                                    }
+                                                }
+                                            }
+                                        }
+                                    }
+                                },
+                                "examples": {
+                                    "example0": {
+                                        "summary": "[1] Error no unbind request",
+                                        "value": {
+                                            "errors": {
+                                                "__all__": [
+                                                    "no_unbind_request"
+                                                ]
+                                            }
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        }
+    },
+    "components": {
+        "securitySchemes": {
+            "oauth_2_0": {
+                "type": "oauth2",
+                "description": "OAuth 2.0 for authenticating SOME API requests.\n",
+                "flows": {
+                    "implicit": {
+                        "authorizationUrl": "https://<realm>.wargaming.net/id/oauth/authorize",
+                        "scopes": {}
+                    },
+                    "authorizationCode": {
+                        "authorizationUrl": "https://<realm>.wargaming.net/id/oauth/authorize",
+                        "tokenUrl": "https://<realm>.wargaming.net/id/oauth/token",
+                        "scopes": {}
+                    }
+                }
+            }
+        }
+    }
+}

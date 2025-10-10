@@ -1,0 +1,9 @@
+fastapi
+PyYAML
+uvicorn
+Django
+Jinja2
+mock
+openapi-core
+requests
+parse

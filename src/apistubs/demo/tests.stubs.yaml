@@ -1,0 +1,64 @@
+apistubs: 1.0.0
+
+PROMPT: |
+  ok
+  skipped
+
+account:
+  get#/does_not_exist_in_spec_but_in_conf/:
+    _500:
+      status: ok
+    200:
+      error: one
+    200-ok:
+      status: one
+  get#/auth/sessions/{accountId}/list/: 200-2
+  get#/realm/detect/:
+    _400:
+      status: ok
+    _401-e:
+      status: ok
+    409-key:
+      HEADERS:
+        Etag: 32423412342
+      realm:
+        one
+  post#/personal/account/birthday/?: 202
+  get#/parametrize/?key2=value2:
+    200:
+      status: ok2
+  get#/parametrize/?key=value&key2=value2:
+    200:
+      status: ok
+  get#/parametrize/?key=value:
+    200:
+      status: ok3
+  post#/parametrize/?key=value&DATA.key=value:
+    200:
+      status: ok
+  post#/parametrize/?key=value&DATA.key_post=value_post&HEADER.X-Tracking-Id=500zxc:
+    200:
+      status: ok
+  post#/parametrize/?key=value&DATA.key_post=value_post&HEADER.X-Tracking-Id=501zxc:
+    200:
+      status: ok
+  post#/parametrize/data/?:  # DATA.key=value:
+    200:
+      status: ok44
+
+spa2:
+  get#/auth/sessions/{accountId}/list/: 200
+
+spa3:
+  get#/auth/sessions/{accountId}/list/: 500
+
+spa4:
+  _get#/auth/sessions/{accountId}/list/: 301
+  get#/auth/sessions/{accountId}/list/:
+    500: ''
+
+spa5:
+  get#/auth/sessions/{accountId}/list/:
+    301:
+      HEADERS:
+        Location: '{{ invalid }}{{ redirect_uri }}&state={{ state }}&scope={{ scope|urlencode }}&authuser=1&prompt=none&code=111111'

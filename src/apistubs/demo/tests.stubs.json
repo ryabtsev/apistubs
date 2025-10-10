@@ -1,0 +1,12 @@
+{
+  "third": {
+    "get#/custom/": 409,
+    "get#/skipped/": 0,
+    "get#/skipped2/": {
+      "408": {
+        "status": "ok"
+      },
+      "0-skipped": null
+    }
+  }
+}

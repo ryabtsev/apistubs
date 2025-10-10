@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8">
+    {% if service == 'ministubs' %}
+    <title>APIStubs</title>
+    {% elif browser_mode %}
+    <title>Browser - APIDocs</title>
+    {% else %}
+    <title>{{ service|upper }} - APIDocs</title>
+    {% endif %}
+    <link rel="stylesheet" type="text/css" href="{{ STATIC_URL }}apistubs/swagger-ui.css" />
+    <link rel="stylesheet" type="text/css" href="{{ STATIC_URL }}apistubs/index.css" />
+    <link rel="stylesheet" href="{{ STATIC_URL }}apistubs/asciinema-player.css">
+
+    <link rel="icon" type="image/png" href="{{ STATIC_URL }}apistubs/favicon-32x32.png" sizes="32x32" />
+    <link rel="icon" type="image/png" href="{{ STATIC_URL }}apistubs/favicon-16x16.png" sizes="16x16" />
+    <style>
+      #demo_watch {max-width: 800px; border: #fff8f1 solid 2px; border-radius: 9px; overflow: hidden;}
+    </style>
+
+{% if service == 'ministubs' %}
+    <style>
+      #demo_watch {max-width: 800px; box-shadow: 9px 6px 13px black;}
+      #menu { position: absolute; top: -30px; right:0; }
+      #menu > div {
+        display: inline-block; border-radius: 5px; padding: 4px 10px; margin-left: 8px;
+        font-size: 17px;
+      }
+      #menu > div a {font-size: 17px;margin-left: 5px;}
+
+      .information-container.wrapper {
+        background: #34281f; margin: 0 auto; color: #fff; max-width: none;
+        background: linear-gradient(#34281f, #7c81c3);
+      }
+      .information-container.wrapper section { max-width: 1460px; margin: 0 auto; padding-top: 50px; }
+      .information-container.wrapper .info {margin: 0px; padding: 10px 0;color: #fff; position:relative;}
+      .information-container.wrapper .info li,
+      .information-container.wrapper .info p {color: #fff8f1;}
+      .information-container.wrapper .info .title {color:#fff8f1; text-shadow: #FC0 1px 0 10px;}
+      .information-container.wrapper .info .title small { background: #000; }
+      .information-container.wrapper .info .title small pre {color: #fff8f1; font-weight: bold; }
+      .scheme-container {display: none; }
+      .information-container .info hgroup.main a {display: none;}
+      .information-container .info hgroup.main .version-stamp {display: none;}
+      .information-container .info a {/*color: #08ffff;*/ color: #5cfefe; font-weight: bold;}
+      .information-container .info a:hover {color: #fadf85;}
+      .information-container .info h2 {color: #fff8f1; margin-top: 30px;}
+      .information-container .info h3 {color: #fff8f1; margin-top: 30px; font-size: 20px;}
+      .information-container .info h3 a {font-size: 17px;}
+      .information-container .info h3 i {font-style: normal; font-weight: normal;}
+    </style>
+{% endif %}
+  </head>
+
+  <body>
+    <div id="swagger-ui"></div>
+    <script src="{{ STATIC_URL }}apistubs/swagger-ui-bundle.js" charset="UTF-8"> </script>
+    <script src="{{ STATIC_URL }}apistubs/swagger-ui-standalone-preset.js" charset="UTF-8"> </script>
+    <script src="{{ STATIC_URL }}apistubs/swagger-initializer.js" charset="UTF-8"> </script>
+    <script src="{{ STATIC_URL }}apistubs/asciinema-player.min.js"></script>
+    <script>
+      window.onload = function() {
+        window.ui = SwaggerUIBundle({
+          {% if browser_mode %}
+            url: "{{ url|default:'' }}",
+          {% else %}
+            {% if spec_url %}
+            url: "{{ spec_url }}",
+            {% elif view.kwargs.spec %}
+            url: "../{{ view.kwargs.spec }}/api.json",
+            {% else %}
+            url: "./api.json",
+            {% endif %}
+          {% endif %}
+          dom_id: '#swagger-ui',
+          deepLinking: true,
+          presets: [
+            SwaggerUIBundle.presets.apis,
+            SwaggerUIStandalonePreset
+          ],
+          plugins: [
+            SwaggerUIBundle.plugins.DownloadUrl
+          ],
+          layout: "{% if browser_mode %}StandaloneLayout{% else %}BaseLayout{% endif %}",
+          validatorUrl: null,
+          onComplete: function() {
+            {% if service == 'ministubs' %}
+            AsciinemaPlayer.create('watch/demo/?cast', document.getElementById('demo'), {
+              preload: true,
+              autoPlay: true,
+              theme: 'dracula',
+              poster: 'data:text/plain,Tips & Tricks',
+              pauseOnMarkers: true
+            });
+            {% endif %}
+          }
+        });
+        ui.initOAuth({clientId: "apidocs"});
+      };
+    </script>
+  </body>
+</html>

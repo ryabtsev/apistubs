@@ -1,0 +1,143 @@
+openapi: 3.1.1
+info:
+  title: |
+    [APIStubs]
+  version: 1.0.0
+  description: |
+
+    TBD
+
+paths:
+  /{service}/:
+    get:
+      description:
+      parameters:
+        - name: service
+          in: path
+          required: true
+      tags:
+      - 1. OpenAPI
+    post:
+      description: curl https://example.net/apidocs/service/ -X POST --data-binary @openapi.json
+      tags:
+      - 1. OpenAPI
+    delete:
+      tags:
+      - 1. OpenAPI
+
+  /sampler/:
+    get:
+      description: |
+        <a target="_blank" href="https://example.net/apidocs/sampler/">https://example.net/apidocs/sampler/</a>
+      tags:
+      - 2. Sampler and datasets
+  /sampler/api/:
+    get:
+      tags:
+      - 2. Sampler and datasets
+  /sampler/traffic/{service}/:
+    get:
+      tags:
+      - 2. Sampler and datasets
+
+  /{env}/{service}/stub:
+    options:
+      tags:
+      - 3. Stubs and StubsForce
+  /{env}/{service}/stubforce:
+    options:
+      tags:
+      - 3. Stubs and StubsForce
+
+  /{env}/settings/:
+    get:
+      description: <a target="_blank" href="https://example.net/apidocs/settings/">https://example.net/apidocs/settings/</a>
+      tags:
+      - 4. StubsSetup
+    post:
+      description: curl https://example.net/apidocs/settings/ -X POST --data-binary @apistubs.yaml
+      requestBody:
+        content:
+          application/json:
+            example:
+              account:
+                post#/accounts/create/:
+                  '409':
+                    status: does_not_exist
+              takeout:
+                get#/requests: 200-not_found
+              service:
+                post#/personal/takeout/confimation/: 500
+                post#/personal/takeout/email/:
+                  '200':
+                    HEADERS:
+                      Etag: c561c68d0ba92bbeb8b0f612a9199f722e3a621a
+                    status: custom
+            schema: {}
+          application/yaml:
+            example:
+              account:
+                post#/accounts/create/:
+                  '409':
+                    status: does_not_exist
+              takeout:
+                get#/requests: 200-not_found
+              wargamingcom:
+                get#/redirect:
+                  '301':
+                    HEADERS:
+                      Location: https://wargaming.com/
+                    status: custom
+              service:
+                post#/personal/takeout/confimation/: 500
+                post#/personal/takeout/email/:
+                  '200':
+                    HEADERS:
+                      Etag: c561c68d0ba92bbeb8b0f612a9199f722e3a621a
+                    status: custom
+            schema: {}
+        required: true
+      tags:
+      - 4. StubsSetup
+    patch:
+      description: curl https://example.net/apidocs/settings/ -X PATCH --data-binary @apistubs.yaml
+      tags:
+      - 4. StubsSetup
+    delete:
+      tags:
+      - 4. StubsSetup
+
+  /{env}/prompt/:
+    get:
+      description: <a target="_blank" href="https://example.net/apidocs/prompt/">https://example.net/apidocs/prompt/</a>
+      tags:
+      - 5. StubsPrompt
+  /{env}/prompt/api/:
+    get:
+      tags:
+      - 5. StubsPrompt
+    post:
+      tags:
+      - 5. StubsPrompt
+    delete:
+      tags:
+      - 5. StubsPrompt
+
+servers:
+components:
+tags:
+- name: 1. OpenAPI
+  description: |
+    <b>specifications</b>
+- name: 2. Sampler and datasets
+  description: |
+    <b>for humans, tests generator and ML models</b>
+- name: 3. Stubs and StubsForce
+  description: |
+    <b>with validation according OpenAPI specification</b>
+- name: 4. StubsSetup
+  description: |
+    <b>for pushing apistubs.yaml</b>
+- name: 5. StubsPrompt
+  description: |
+    <b>for set-up stubs aliases</b>
